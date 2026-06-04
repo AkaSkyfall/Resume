@@ -1,0 +1,80 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Jira: Inspect Project Fields (run first!)",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/jira-auto/jira-automation/create-jira.js",
+        "--inspect"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Jira: Create Story + Subtasks",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/jira-auto/jira-automation/create-jira.js"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Jira: Add Subtasks to Existing Story",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/jira-auto/jira-automation/create-jira.js",
+        "${workspaceFolder}/jira-auto/jira-automation/add-subtasks.json"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Jira: Create from custom input file",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/jira-auto/jira-automation/create-jira.js",
+        "${input:inputFile}"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "inputFile",
+      "description": "Path to input JSON (relative to workspace root)",
+      "default": "jira-auto/jira-automation/story-input.json",
+      "type": "promptString"
+    }
+  ]
+}
