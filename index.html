@@ -487,6 +487,10 @@
       color: #2c3e55;
       line-height: 1.66;
       text-align: justify;
+      padding-left: 10px;
+      border-left: 2.5px solid transparent;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .sumtxt strong {
@@ -711,6 +715,334 @@
       print-color-adjust: exact;
     }
 
+    /* ===================== SCREEN-ONLY ANIMATIONS ===================== */
+    @media screen {
+
+      /* ---------- Keyframes ---------- */
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeInLeft {
+        from { opacity: 0; transform: translateX(-20px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(20px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes pulseRing {
+        0%,100% { box-shadow: 0 0 0 4px rgba(42,127,255,.18), 0 6px 20px rgba(0,0,0,.4); }
+        50%      { box-shadow: 0 0 0 11px rgba(42,127,255,.3), 0 6px 30px rgba(42,127,255,.38); }
+      }
+      @keyframes bgFloat {
+        0%,100% { background-position: 0% 50%; }
+        50%      { background-position: 100% 50%; }
+      }
+      @keyframes badgePulse {
+        0%,100% { box-shadow: 0 0 0 0 rgba(21,128,61,0); }
+        50%      { box-shadow: 0 0 0 5px rgba(21,128,61,.22); }
+      }
+      @keyframes shimmerFlow {
+        0%   { background-position: -200% center; }
+        100% { background-position:  200% center; }
+      }
+      @keyframes headerGlow {
+        0%,100% { opacity: .35; }
+        50%      { opacity: .85; }
+      }
+      @keyframes dotSpin {
+        0%   { transform: rotate(0deg) translateX(4px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(4px) rotate(-360deg); }
+      }
+
+      /* ---------- Body background ---------- */
+      body {
+        background: linear-gradient(-45deg, #aabfd5, #c9d6e3, #b9cedf, #d1dce8);
+        background-size: 400% 400%;
+        animation: bgFloat 16s ease infinite;
+      }
+
+      /* ---------- Page entrance ---------- */
+      .page {
+        animation: fadeInDown .8s .05s cubic-bezier(.16,1,.3,1) both;
+      }
+
+      /* ---------- Header ambient glow overlay ---------- */
+      .header::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse at 72% 50%, rgba(42,127,255,.13) 0%, transparent 68%);
+        animation: headerGlow 6s ease-in-out infinite;
+        z-index: 0;
+      }
+
+      /* ---------- Photo ring pulse ---------- */
+      .photo-ring {
+        animation: pulseRing 3.6s ease-in-out infinite;
+      }
+
+      /* ---------- Header elements staggered entrance ---------- */
+      .hdr-name          { animation: fadeInLeft  .55s .25s cubic-bezier(.16,1,.3,1) both; }
+      .header-info h1    { animation: fadeInRight .55s .32s cubic-bezier(.16,1,.3,1) both; }
+      .hdr-title         { animation: fadeInRight .55s .46s cubic-bezier(.16,1,.3,1) both; }
+      .hdr-divider       { animation: fadeInRight .45s .58s cubic-bezier(.16,1,.3,1) both; }
+      .contacts          { animation: fadeInRight .55s .68s cubic-bezier(.16,1,.3,1) both; }
+
+      /* ---------- Sidebar sections staggered ---------- */
+      .sidebar .sb:nth-child(1) { animation: fadeInLeft .5s .38s cubic-bezier(.16,1,.3,1) both; }
+      .sidebar .sb:nth-child(2) { animation: fadeInLeft .5s .53s cubic-bezier(.16,1,.3,1) both; }
+      .sidebar .sb:nth-child(3) { animation: fadeInLeft .5s .68s cubic-bezier(.16,1,.3,1) both; }
+      .sidebar .sb:nth-child(4) { animation: fadeInLeft .5s .83s cubic-bezier(.16,1,.3,1) both; }
+      .sidebar .sb:nth-child(5) { animation: fadeInLeft .5s .98s cubic-bezier(.16,1,.3,1) both; }
+      .sidebar .sb:nth-child(6) { animation: fadeInLeft .5s 1.13s cubic-bezier(.16,1,.3,1) both; }
+
+      /* ---------- Proficiency bars ---------- */
+      .pbf {
+        transition: width 1.4s cubic-bezier(.16,1,.3,1);
+      }
+
+      /* ---------- Section scroll reveal (driven by JS) ---------- */
+      .sec {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+      }
+      .sec.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- Section heading underline reveal ---------- */
+      .sech::before {
+        width: 0;
+        transition: width .7s .12s cubic-bezier(.16,1,.3,1);
+      }
+      .sech.revealed::before {
+        width: 100%;
+      }
+
+      /* ---------- Experience card hover ---------- */
+      .exc {
+        transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      }
+      .exc:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 32px rgba(42,127,255,.14);
+        border-color: #bad0f0;
+      }
+
+      /* ---------- Project card hover ---------- */
+      .prc {
+        transition: transform .22s ease, box-shadow .22s ease;
+      }
+      .prc:hover {
+        transform: translateY(-3px) translateX(3px);
+        box-shadow: 0 10px 32px rgba(42,127,255,.13);
+      }
+
+      /* ---------- Skill tag hover ---------- */
+      .tg {
+        transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+        cursor: default;
+      }
+      .tb:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(42,127,255,.38);
+        background: rgba(42,127,255,.28);
+      }
+      .td:hover {
+        transform: translateY(-2px);
+        background: rgba(255,255,255,.1);
+      }
+
+      /* ---------- Competency tag hover ---------- */
+      .ctg {
+        transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+        cursor: default;
+      }
+      .ctg:hover {
+        background: #dceaff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(42,127,255,.2);
+      }
+
+      /* ---------- Contact item hover ---------- */
+      .ci {
+        transition: color .15s ease, transform .15s ease;
+        cursor: default;
+      }
+      .ci:hover {
+        color: #aad4f5;
+        transform: translateX(3px);
+      }
+
+      /* ---------- Achievement item hover ---------- */
+      .aci {
+        transition: transform .15s ease;
+        cursor: default;
+      }
+      .aci:hover {
+        transform: translateX(5px);
+      }
+
+      /* ---------- Interest tag hover ---------- */
+      .htg {
+        transition: transform .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+        cursor: default;
+      }
+      .htg:hover {
+        transform: translateY(-2px);
+        background: rgba(42,127,255,.18);
+        color: #7eb8f7;
+        border-color: rgba(42,127,255,.35);
+      }
+
+      /* ---------- Education item hover ---------- */
+      .edc {
+        transition: transform .15s ease;
+        cursor: default;
+      }
+      .edc:hover {
+        transform: translateX(4px);
+      }
+
+      /* ---------- Sidebar heading hover ---------- */
+      .sbh {
+        transition: color .2s ease, letter-spacing .2s ease;
+        cursor: default;
+      }
+      .sbh:hover {
+        color: #5db8ff;
+        letter-spacing: 2.4px;
+      }
+
+      /* ---------- Language dot hover ---------- */
+      .ldd.lon {
+        transition: box-shadow .15s ease, transform .15s ease;
+        cursor: default;
+      }
+      .ldd.lon:hover {
+        box-shadow: 0 0 7px rgba(42,127,255,.8);
+        transform: scale(1.35);
+      }
+
+      /* ---------- "Current" badge pulse ---------- */
+      .bcur {
+        animation: badgePulse 2.8s ease-in-out infinite;
+      }
+
+      /* ---------- Name shimmer on hover ---------- */
+      .header-info h1:hover {
+        background: linear-gradient(90deg, #ffffff 0%, #5db8ff 42%, #ffffff 80%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmerFlow 2.4s linear infinite;
+      }
+
+      /* ---------- Summary reveal ---------- */
+      @keyframes sumFadeUp {
+        from { opacity: 0; transform: translateY(16px); border-left-color: transparent; }
+        to   { opacity: 1; transform: translateY(0);   border-left-color: #2a7fff; }
+      }
+      .sumtxt {
+        opacity: 0;
+      }
+      .sumtxt.sum-revealed {
+        animation: sumFadeUp .7s .1s cubic-bezier(.16,1,.3,1) forwards;
+      }
+
+      /* ---------- Summary strong color pulse ---------- */
+      @keyframes strongColorPulse {
+        0%,100% { color: #1d4ed8; }
+        50%      { color: #38bdf8; }
+      }
+      .sumtxt.sum-revealed strong {
+        animation: strongColorPulse 1.8s ease 0.9s 2 normal;
+      }
+
+      /* ---------- Scroll progress bar ---------- */
+      @keyframes progGradShift {
+        0%   { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      #scroll-prog {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, #1d4ed8, #0ea5e9, #38bdf8, #7c3aed, #0ea5e9);
+        background-size: 300% 100%;
+        z-index: 9999;
+        border-radius: 0 2px 2px 0;
+        pointer-events: none;
+        animation: progGradShift 3s linear infinite;
+        box-shadow: 0 0 8px rgba(42,127,255,.6);
+      }
+
+      /* ---------- Typewriter cursor ---------- */
+      @keyframes blinkCursor {
+        0%,100% { opacity: 1; }
+        50%      { opacity: 0; }
+      }
+      .cursor-blink {
+        display: inline-block;
+        width: 1.5px;
+        height: .82em;
+        background: #6aaee8;
+        margin-left: 2px;
+        vertical-align: middle;
+        border-radius: 1px;
+        animation: blinkCursor .7s step-end infinite;
+      }
+
+      /* ---------- Bullet list staggered reveal ---------- */
+      .bls li {
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity .38s ease, transform .38s ease;
+      }
+      .bls.bls-revealed li { opacity: 1; transform: none; }
+      .bls.bls-revealed li:nth-child(1) { transition-delay: .04s; }
+      .bls.bls-revealed li:nth-child(2) { transition-delay: .10s; }
+      .bls.bls-revealed li:nth-child(3) { transition-delay: .16s; }
+      .bls.bls-revealed li:nth-child(4) { transition-delay: .22s; }
+      .bls.bls-revealed li:nth-child(5) { transition-delay: .28s; }
+      .bls.bls-revealed li:nth-child(6) { transition-delay: .34s; }
+      .bls.bls-revealed li:nth-child(7) { transition-delay: .40s; }
+
+      /* ---------- Tag staggered pop-in ---------- */
+      @keyframes tagPopIn {
+        from { opacity: 0; transform: scale(0.6) translateY(7px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      .tgs .tg, .ctgs .ctg { opacity: 0; }
+      .tgs.tags-revealed .tg, .ctgs.tags-revealed .ctg {
+        animation: tagPopIn .32s cubic-bezier(.34,1.56,.64,1) forwards;
+      }
+
+      /* ---------- Proficiency bar shimmer after fill ---------- */
+      @keyframes barShimmer {
+        0%   { background-position: -100% 0; }
+        100% { background-position: 220% 0; }
+      }
+      .pbf.shimmer {
+        background: linear-gradient(90deg,
+          #1d4ed8 0%, #0ea5e9 35%, #93c5fd 50%, #0ea5e9 65%, #1d4ed8 100%);
+        background-size: 250% 100%;
+        animation: barShimmer 1.6s ease 1.5s 2 backwards;
+      }
+
+    }
+
     /* ===================== PRINT ===================== */
     @media print {
 
@@ -813,7 +1145,7 @@
       <div class="header-info">
         <h1>Akash Singh</h1>
         <div class="hdr-title">Senior Frontend Developer &nbsp;&middot;&nbsp; Angular Specialist &nbsp;&middot;&nbsp;
-          Mobile &amp; Web</div>
+          Mobile, Web &amp; Embedded </div>
         <div class="hdr-divider"></div>
         <div class="contacts">
           <span class="ci">
@@ -1015,7 +1347,7 @@
       <div class="sb">
         <div class="sbh">Interests</div>
         <div class="tgs">
-          <span class="htg">✈ Travelling</span>
+          <span class="htg"><span style="color:#fff;">✈</span> Travelling</span>
           <span class="htg">🏏 Outdoor Sports</span>
           <span class="htg">🤖 AI Tooling</span>
           <span class="htg">📱 Mobile Dev</span>
@@ -1175,6 +1507,180 @@
     </main>
 
   </div>
+
+  <script>
+    (function () {
+      // Respect user preference for reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.sec').forEach(function (s) { s.classList.add('revealed'); });
+        document.querySelectorAll('.sech').forEach(function (h) { h.classList.add('revealed'); });
+        document.querySelectorAll('.bls').forEach(function (l) { l.classList.add('bls-revealed'); });
+        document.querySelectorAll('.tgs,.ctgs').forEach(function (g) {
+          g.classList.add('tags-revealed');
+          g.querySelectorAll('.tg,.ctg').forEach(function(t){ t.style.opacity='1'; });
+        });
+        var s = document.querySelector('.sumtxt'); if (s) s.classList.add('sum-revealed');
+        return;
+      }
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.sec').forEach(function (s) { s.classList.add('revealed'); });
+        document.querySelectorAll('.sech').forEach(function (h) { h.classList.add('revealed'); });
+        document.querySelectorAll('.bls').forEach(function (l) { l.classList.add('bls-revealed'); });
+        document.querySelectorAll('.tgs,.ctgs').forEach(function (g) {
+          g.classList.add('tags-revealed');
+          g.querySelectorAll('.tg,.ctg').forEach(function(t){ t.style.opacity='1'; });
+        });
+        var s2 = document.querySelector('.sumtxt'); if (s2) s2.classList.add('sum-revealed');
+        return;
+      }
+
+      // ── Proficiency bar animated fill ──
+      var bars = document.querySelectorAll('.pbf');
+      bars.forEach(function (bar) {
+        var tw = bar.style.width || '0%';
+        bar.dataset.tw = tw;
+        bar.style.width = '0';
+      });
+      var barObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var bar = entry.target;
+            setTimeout(function () { bar.style.width = bar.dataset.tw; }, 180);
+            barObs.unobserve(bar);
+          }
+        });
+      }, { threshold: 0.6 });
+      bars.forEach(function (b) { barObs.observe(b); });
+
+      // ── Main section scroll reveal ──
+      var secObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var d = parseInt(el.dataset.delay || 0);
+            setTimeout(function () { el.classList.add('revealed'); }, d);
+            secObs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.sec').forEach(function (sec, i) {
+        sec.dataset.delay = i * 55;
+        secObs.observe(sec);
+      });
+
+      // ── Section heading underline reveal ──
+      var hdgObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            hdgObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.sech').forEach(function (h) { hdgObs.observe(h); });
+
+      // ── Professional Summary reveal ──
+      var sumEl = document.querySelector('.sumtxt');
+      if (sumEl) {
+        var sumObs = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) {
+            sumEl.classList.add('sum-revealed');
+            sumObs.unobserve(sumEl);
+          }
+        }, { threshold: 0.15 });
+        sumObs.observe(sumEl);
+      }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // ── Scroll progress bar ──
+      var prog = document.createElement('div');
+      prog.id = 'scroll-prog';
+      document.body.insertBefore(prog, document.body.firstChild);
+      function updateProg() {
+        var scrolled = window.scrollY || window.pageYOffset;
+        var total = document.documentElement.scrollHeight - window.innerHeight;
+        prog.style.width = (total > 0 ? (scrolled / total * 100) : 0) + '%';
+      }
+      window.addEventListener('scroll', updateProg, { passive: true });
+
+      // ── Typewriter for job title ──
+      var titleEl = document.querySelector('.hdr-title');
+      if (titleEl) {
+        var fullText = titleEl.textContent.trim();
+        titleEl.innerHTML = '';
+        var cur = document.createElement('span');
+        cur.className = 'cursor-blink';
+        var idx = 0;
+        setTimeout(function type() {
+          titleEl.innerHTML = '';
+          var t = document.createTextNode(fullText.slice(0, idx));
+          titleEl.appendChild(t);
+          titleEl.appendChild(cur);
+          if (idx < fullText.length) { idx++; setTimeout(type, 24); }
+          else { setTimeout(function () { if (cur.parentNode) cur.parentNode.removeChild(cur); }, 800); }
+        }, 700);
+      }
+
+      // ── Bullet list staggered reveal ──
+      if ('IntersectionObserver' in window) {
+        var bObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('bls-revealed'); bObs.unobserve(e.target); }
+          });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.bls').forEach(function (l) { bObs.observe(l); });
+
+        // ── Tag staggered pop-in ──
+        var tObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.querySelectorAll('.tg,.ctg').forEach(function (tag, i) {
+                tag.style.animationDelay = (i * 0.042) + 's';
+              });
+              e.target.classList.add('tags-revealed');
+              tObs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.tgs,.ctgs').forEach(function (g) { tObs.observe(g); });
+
+        // ── Bar shimmer ──
+        document.querySelectorAll('.pbf').forEach(function (bar) {
+          var sObs = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) { setTimeout(function () { bar.classList.add('shimmer'); }, 200); sObs.unobserve(bar); }
+          }, { threshold: 0.9 });
+          sObs.observe(bar);
+        });
+      }
+
+      // ── 3D card tilt ──
+      function addTilt(sel) {
+        document.querySelectorAll(sel).forEach(function (card) {
+          card.addEventListener('mousemove', function (e) {
+            var r = card.getBoundingClientRect();
+            var dx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
+            var dy = ((e.clientY - r.top)  / r.height - 0.5) * 2;
+            card.style.transform = 'perspective(800px) rotateY(' + (dx * 5) + 'deg) rotateX(' + (-dy * 3.5) + 'deg) translateY(-3px) scale(1.01)';
+            card.style.boxShadow = '0 16px 44px rgba(42,127,255,' + (0.12 + Math.abs(dx) * 0.08) + ')';
+            card.style.transition = 'box-shadow .08s ease';
+          });
+          card.addEventListener('mouseleave', function () {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+            card.style.transition = 'transform .35s ease, box-shadow .35s ease';
+          });
+        });
+      }
+      addTilt('.exc');
+      addTilt('.prc');
+
+    })();
+  </script>
 
   <!-- Print tip (hidden when printing) -->
   <!-- <div class="print-tip" style="text-align:center;margin:10px auto 24px;font-size:.76rem;color:#6b7f96;width:210mm;font-family:'Inter',sans-serif;">
